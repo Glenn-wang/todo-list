@@ -5,61 +5,59 @@ import java.util.List;
 
 /**
  * @author ziyu
+ * @date 2021/2/10 17:30
  */
 public enum CmdEnum {
 
     /**
-     * 命令
+     * 程序退出
      */
-    TODO("todo"),
-    /**
-     * 参数：添加
-     */
-    ADD("add"),
-    /**
-     * 参数：完成
-     */
-    DONE("done"),
-    /**
-     * 参数：查看未完成
-     */
-    LIST("list"),
-    /**
-     * 参数：查看所有
-     */
-    LIST_ALL("--all"),
+    EXIT("exit"),
     /**
      * 帮助
      */
     HELP("help"),
     /**
-     * 退出
+     * 空命令
      */
-    EXIT("exit"),
+    BANK("bank"),
+
     /**
-     * 清屏
+     * 添加命令
      */
-    CLEAR("clear");
+    ADD("add"),
+
+    /**
+     * 待办列表
+     */
+    LIST("list"),
+
+    /**
+     * 所有todo
+     */
+    LIST_ALL("--all"),
+
+    /**
+     * 完成
+     */
+    DONE("done");
+
+    public String cmd;
+
+    public static List<String> cmdList;
+
+    static {
+        cmdList = new ArrayList<>();
+        for (CmdEnum cmdEnum : CmdEnum.values()) {
+            cmdList.add(cmdEnum.getCmd());
+        }
+    }
 
     CmdEnum(String cmd) {
         this.cmd = cmd;
     }
 
-    private final String cmd;
-
-    private static final List<String> CMD_LIST = new ArrayList<String>();
-
     public String getCmd() {
         return cmd;
-    }
-
-    static {
-        for (CmdEnum value : CmdEnum.values()) {
-            CMD_LIST.add(value.getCmd());
-        }
-    }
-
-    public static List<String> getCmdList() {
-        return CMD_LIST;
     }
 }

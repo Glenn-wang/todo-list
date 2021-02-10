@@ -1,47 +1,37 @@
 package com.ziyu.todo.repository;
 
-import com.ziyu.todo.domain.TodoItem;
+import com.ziyu.todo.domain.TodoDO;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author ziyu
  */
-public class TodoRepository {
+public interface TodoRepository {
 
-    private static final Map<Integer, TodoItem> itemMap = new HashMap<Integer, TodoItem>();
+    /**
+     * 存储一条todo
+     * @param content todo信息
+     * @return 处理结果
+     */
+    TodoDO save(String content);
 
-    static class Helper {
-        private static final TodoRepository INSTANCE;
+    /**
+     * 完成一条todo
+     * @param index 索引
+     * @return 处理结果
+     */
+    TodoDO done(Integer index);
 
-        static {
-            INSTANCE = new TodoRepository();
-        }
-    }
+    /**
+     * 查询待办的todo
+     * @return 查询结果
+     */
+    List<TodoDO> list();
 
-    public TodoRepository getInstance() {
-        return Helper.INSTANCE;
-    }
-
-    public static boolean addTodo(TodoItem item) {
-        itemMap.put(item.getIndex(), item);
-        return true;
-    }
-
-    public static boolean updateTodo(TodoItem newItem) {
-        TodoItem oldItem = itemMap.get(newItem.getIndex());
-        oldItem.setContent(newItem.getContent());
-        return true;
-    }
-
-    public static List<TodoItem> list() {
-        return new ArrayList<TodoItem>(itemMap.values());
-    }
-
-    public static Integer size() {
-        return itemMap.size();
-    }
+    /**
+     * 查询所有todo
+     * @return 查询结果
+     */
+    List<TodoDO> listAll();
 }
